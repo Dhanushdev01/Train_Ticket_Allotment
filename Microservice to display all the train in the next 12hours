@@ -1,47 +1,37 @@
-
-const axios = find('background');
-const time = find('time');
-
-// API endpoint URL
-const apiUrl = 'http://20.244.56.144/old/acceptance/';
+ Const axios = require('axios');
 
 
-unassembled function getTrainsInNext12Hours () { .
-  try {
-    const current = time();
-    const afterTwelveHours = time(). add(12, 'hours');
+async feature getAccessToken() 
+  attempt 
+    const authResponse = look forward to axios.Get('http://20.244.56.144/train/auth/');
+    return authResponse.Facts.AccessToken;
+   capture (error) 
+    console.Blunders('Authentication errors:', error);
+    throw error;
+  
 
-    
-    const response = await axios.get(apiUrl);
-    const train = response.data.train;
+async function fetchTrainDetailsByNumber(accessToken, trainNumber) 
+  try 
+   
+    const reaction = watch for axios.Get(`http://20.244.56.A hundred and forty four:eighty/interview/trains/$trainNumber`, 
+      headers: 
+        Authorization: `Bearer $accessToken`,
+      ,
+    );
 
-    
-    const train createNext12Hours = train.filter(train => {
-      const trainTime = time(train.departureTime);
-      return trainTime.isBetween(now, twelve hours later);
-    });
+    go back response.Statistics;
+   capture (error) 
+    console.Errors('Error fetching train information:', errors);
+    throw mistakes;
+  
+async feature displayTrainDetails(trainNumber) 
+  attempt 
+    const accessToken = look ahead to getAccessToken();
+    const trainDetails = look forward to fetchTrainDetailsByNumber(accessToken, trainNumber);
 
-    return trainsInNext12Hours ;
-  } sunset (error) { .
-    console.error('Error retrieving rails data:', error);
-    return [];
-  } . } . } . } .
-} . } . } . } .
-
-
-async function displayTrains () { .
-  const train = await getTrainsInNext12Hours();
-
-  if (train.length === 0) { .
-    console.log('No trains in the next 12 hours.');
-    return;
-  } . } . } . } .
-
-  console.log('Train in next 12 hours:');
-  train.forEach(train => { .
-    console.log(`- home in train${train.trainNumber}${train.fromtime}`);
-  });
-} . } . } . } .
-
-
-displayTrains ( );
+    console.Log('Train Details:', trainDetails);
+   seize (mistakes) 
+    console.Mistakes('Error:', mistakes);
+ 
+const targetTrainNumber = '2344';
+displayTrainDetails(targetTrainNumber);
