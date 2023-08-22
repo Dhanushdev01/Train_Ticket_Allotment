@@ -11,11 +11,11 @@ unassembled function getTrainsInNext12Hours () { .
     const current = time();
     const afterTwelveHours = time(). add(12, 'hours');
 
-    // Make the request to the API
+    
     const response = await axios.get(apiUrl);
     const train = response.data.train;
 
-    // Filter trains in the next 12 hours
+    
     const train createNext12Hours = train.filter(train => {
       const trainTime = time(train.departureTime);
       return trainTime.isBetween(now, twelve hours later);
